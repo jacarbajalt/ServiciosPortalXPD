@@ -67,13 +67,13 @@ public class NumeroLetraController {
     	Properties prop = new Properties();
     	try (InputStream input = getClass().getClassLoader().getResourceAsStream("config.properties")) {
     	    if (input == null) 
-    	        throw new FileNotFoundException("No se encontró config.properties");
+    	        throw new FileNotFoundException("No se encontrï¿½ config.properties");
     	    
     	    prop.load(input);
     	}
-    	// Validación token
+    	// Validaciï¿½n token
         if (!"g_NndKQ7vM=[".equals(token) && !"JEJE".equals(str)) {
-        	log.info("No tiene permisos para realizar esta acción");
+        	log.info("No tiene permisos para realizar esta acciï¿½n");
             return ResponseEntity.status(403).body(null);
         }
 
@@ -91,7 +91,6 @@ public class NumeroLetraController {
 
         byte[] qr = qrService.generarQRCode(url, 400, 400);
         log.info("[GenerarQR] >>> QR Generado Satisfactoriamente");
-        log.info("[GenerarQR] >>> QR en Base64: {}", Base64.getEncoder().encodeToString(qr));
         return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(qr);
     }
 }
