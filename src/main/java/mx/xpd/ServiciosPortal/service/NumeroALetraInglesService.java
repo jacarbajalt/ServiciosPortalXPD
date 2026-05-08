@@ -43,51 +43,38 @@ public class NumeroALetraInglesService {
     }
     
     private String convertirNumero(long numero) {
-
-        if (numero < 30) {
-            return UNIDADES[(int) numero];
-        }
-
+        if (numero < 30) return UNIDADES[(int) numero];
+        
         if (numero < 100) {
-
             int decena = (int) (numero / 10);
             int unidad = (int) (numero % 10);
 
-            if (unidad == 0) {
-                return DECENAS[decena];
-            }
-
+            if (unidad == 0) return DECENAS[decena];
+            
             return DECENAS[decena] + "-" + UNIDADES[unidad];
         }
 
         if (numero < 1000) {
-
             int centena = (int) (numero / 100);
             int resto = (int) (numero % 100);
 
-            if (resto == 0) {
-                return CENTENAS[centena];
-            }
+            if (resto == 0) return CENTENAS[centena];
 
             return CENTENAS[centena] + " " + convertirNumero(resto);
         }
 
         if (numero < 1_000_000) {
-
             long miles = numero / 1000;
             long resto = numero % 1000;
 
             String resultado;
 
-            if (miles == 1) {
+            if (miles == 1) 
                 resultado = "ONE THOUSAND";
-            } else {
+            else 
                 resultado = convertirNumero(miles) + " THOUSAND";
-            }
 
-            if (resto > 0) {
-                resultado += " " + convertirNumero(resto);
-            }
+            if (resto > 0) resultado += " " + convertirNumero(resto);
 
             return resultado;
         }
@@ -105,17 +92,14 @@ public class NumeroALetraInglesService {
 
         String nombreMillon;
 
-        if (parteAlta == 1) {
+        if (parteAlta == 1) 
             nombreMillon = MILLON_SINGULAR[indiceMillon];
-        } else {
+        else 
             nombreMillon = MILLON_PLURAL[indiceMillon];
-        }
 
         String resultado = convertirNumero(parteAlta) + " " + nombreMillon;
 
-        if (resto > 0) {
-            resultado += " " + convertirNumero(resto);
-        }
+        if (resto > 0) resultado += " " + convertirNumero(resto);
 
         return resultado;
     }

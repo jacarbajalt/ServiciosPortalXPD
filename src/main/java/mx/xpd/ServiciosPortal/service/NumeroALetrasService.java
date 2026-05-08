@@ -31,18 +31,14 @@ public class NumeroALetrasService {
     }
 
     private String convertirNumero(long numero) {
-        if (numero <= 20) {
-            return UNIDADES[(int) numero];
-        }
+        if (numero <= 20) return UNIDADES[(int) numero];
 
         if (numero < 100) {
             int decena = (int) (numero / 10);
             int unidad = (int) (numero % 10);
 
-            if (numero <= 29) {
-                return "veinti" + UNIDADES[unidad];
-            }
-
+            if (numero <= 29) return "veinti" + UNIDADES[unidad];
+            
             return DECENAS[decena] + (unidad > 0 ? " y " + UNIDADES[unidad] : "");
         }
 
@@ -60,17 +56,13 @@ public class NumeroALetrasService {
             long resto = numero % 1000;
 
             String milesTexto = (miles == 1) ? "mil" : convertirNumero(miles) + " mil";
-
             return milesTexto + (resto > 0 ? " " + convertirNumero(resto) : "");
         }
 
         long millones = numero / 1000000;
         long resto = numero % 1000000;
 
-        String millonesTexto = (millones == 1)
-                ? "un millón"
-                : convertirNumero(millones) + " millones";
-
+        String millonesTexto = (millones == 1) ? "un millón" : convertirNumero(millones) + " millones";
         return millonesTexto + (resto > 0 ? " " + convertirNumero(resto) : "");
     }
 }

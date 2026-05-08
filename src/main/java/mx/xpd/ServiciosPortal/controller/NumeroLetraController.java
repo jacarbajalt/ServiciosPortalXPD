@@ -24,7 +24,7 @@ import mx.xpd.ServiciosPortal.service.QRService;
 
 /**
 *
-* Este script convierte cantidades en letra
+* Este servicio Rest es para convertir numeros a letra en ingles y español asi como para obtener el QR de un CFDI
 * 
 * @author  Juan Antonio <desarrollo19@xpd.mx>
 * @version 3.3 y 4.0
@@ -63,32 +63,34 @@ public class NumeroLetraController {
             @RequestParam(value = "fe", required = false) String fe, @RequestParam(value = "IdCCP", required = false) String IdCCP,
             @RequestParam(value = "FechaOrig", required = false) String FechaOrig, @RequestParam(value = "FechaTimb", required = false) String FechaTimb
     ) throws FileNotFoundException, IOException {
-
     	Properties prop = new Properties();
-    	try (InputStream input = getClass().getClassLoader().getResourceAsStream("config.properties")) {
-    	    if (input == null) 
-    	        throw new FileNotFoundException("No se encontrï¿½ config.properties");
-    	    
-    	    prop.load(input);
-    	}
-    	// Validaciï¿½n token
+    	InputStream input = getClass().getClassLoader().getResourceAsStream("config.properties");
+	    if (input == null) {
+	    	log.info("No se encontró el archivo config.properties");
+	        throw new FileNotFoundException("No se encontró el archivo config.properties");
+	    }else
+	    	prop.load(input);
+    	
+    	//Valida el token asignado por Addendas
         if (!"g_NndKQ7vM=[".equals(token) && !"JEJE".equals(str)) {
-        	log.info("No tiene permisos para realizar esta acciï¿½n");
+        	log.info("[GenerarQR] >>> No tiene permisos para realizar esta acción");
             return ResponseEntity.status(403).body(null);
         }
 
         String url;
-        // CFDI
-        if (id != null && re != null && rr != null && tt != null && fe != null) {
+        
+        if (id != null && re != null && rr != null && tt != null && fe != null) { // CFDI
             url = prop.getProperty("validaCfdiSAT")+"/default.aspx?"+ "&id=" + id + "&re=" + re + "&rr=" + rr + "&tt=" + tt + "&fe=" + fe;
             log.info("[GenerarQR] >>> URL: {}", url);
-        }else if (IdCCP != null && FechaOrig != null && FechaTimb != null) {
+        }else if (IdCCP != null && FechaOrig != null && FechaTimb != null) { //CartaPorte
             url = prop.getProperty("validaCfdiSAT")+"/verificaccp/default.aspx?" + "IdCCP=" + IdCCP + "&FechaOrig=" + FechaOrig + "&FechaTimb=" + FechaTimb;
             log.info("[GenerarQR] >>> URL: {}", url);
         } else {
-            return ResponseEntity.status(404).body(null);
+        	log.info("[GenerarQR] >>> URL no proporcionada");
+        	return ResponseEntity.status(404).body(null);
         }
-
+        
+        //Devuelve la URL para generar el QR desde el Service
         byte[] qr = qrService.generarQRCode(url, 400, 400);
         log.info("[GenerarQR] >>> QR Generado Satisfactoriamente");
         return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(qr);
