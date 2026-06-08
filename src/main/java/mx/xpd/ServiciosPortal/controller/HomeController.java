@@ -8,6 +8,6 @@ public class HomeController {
 
     @GetMapping("/")
     public String home() {
-        return "Aplicación ServiciosPortal funcionando correctamente con Java 25 y WildFly 39";
+        return "AplicaciÃ³n ServiciosPortal-Timbrado funcionando correctamente con Java 25 y WildFly 40";
     }
 }

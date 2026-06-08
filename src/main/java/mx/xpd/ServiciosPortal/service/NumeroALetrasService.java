@@ -8,7 +8,7 @@ public class NumeroALetrasService {
     private static final String[] UNIDADES = {
             "", "uno", "dos", "tres", "cuatro", "cinco", "seis",
             "siete", "ocho", "nueve", "diez", "once", "doce",
-            "trece", "catorce", "quince", "dieciséis", "diecisiete",
+            "trece", "catorce", "quince", "dieciseis", "diecisiete",
             "dieciocho", "diecinueve", "veinte"
     };
 
@@ -55,14 +55,21 @@ public class NumeroALetrasService {
             long miles = numero / 1000;
             long resto = numero % 1000;
 
-            String milesTexto = (miles == 1) ? "mil" : convertirNumero(miles) + " mil";
+            String milesTexto = (miles == 1) ? "mil" : apocopar(convertirNumero(miles)) + " mil";
             return milesTexto + (resto > 0 ? " " + convertirNumero(resto) : "");
         }
 
         long millones = numero / 1000000;
         long resto = numero % 1000000;
 
-        String millonesTexto = (millones == 1) ? "un millón" : convertirNumero(millones) + " millones";
+        String millonesTexto = (millones == 1) ? "un millÃ³n" : apocopar(convertirNumero(millones)) + " millones";
         return millonesTexto + (resto > 0 ? " " + convertirNumero(resto) : "");
+    }
+    
+    private String apocopar(String texto) {
+        if (texto.endsWith(" y uno")) return texto.substring(0, texto.length() - 1);
+        if (texto.endsWith("uno")) return texto.substring(0, texto.length() - 3) + "un";
+
+        return texto;
     }
 }

@@ -14,6 +14,6 @@ public class ServiciosPortalApplication {
 
 	@EventListener(ApplicationReadyEvent.class)
 	public void ready() {
-		System.out.println(">>> Aplicación lista y funcionando <<<");
+		System.out.println(">>> AplicaciÃ³n lista y funcionando <<<");
 	}
 }

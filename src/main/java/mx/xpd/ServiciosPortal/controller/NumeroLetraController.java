@@ -24,7 +24,7 @@ import mx.xpd.ServiciosPortal.service.QRService;
 
 /**
 *
-* Este servicio Rest es para convertir numeros a letra en ingles y español asi como para obtener el QR de un CFDI
+* Este servicio Rest es para convertir numeros a letra en ingles y espaï¿½ol asi como para obtener el QR de un CFDI
 * 
 * @author  Juan Antonio <desarrollo19@xpd.mx>
 * @version 3.3 y 4.0
@@ -66,14 +66,14 @@ public class NumeroLetraController {
     	Properties prop = new Properties();
     	InputStream input = getClass().getClassLoader().getResourceAsStream("config.properties");
 	    if (input == null) {
-	    	log.info("No se encontró el archivo config.properties");
-	        throw new FileNotFoundException("No se encontró el archivo config.properties");
+	    	log.info("No se encontrï¿½ el archivo config.properties");
+	        throw new FileNotFoundException("No se encontrÃ³ el archivo config.properties");
 	    }else
 	    	prop.load(input);
     	
     	//Valida el token asignado por Addendas
         if (!"g_NndKQ7vM=[".equals(token) && !"JEJE".equals(str)) {
-        	log.info("[GenerarQR] >>> No tiene permisos para realizar esta acción");
+        	log.info("[GenerarQR] >>> No tiene permisos para realizar esta acciÃ³n");
             return ResponseEntity.status(403).body(null);
         }
 
