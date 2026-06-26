@@ -21,16 +21,14 @@ public class NumeroMonedaService {
         this.numeroALetrasService = numeroALetrasService;
     }
 
-    public String convertirMoneda(BigDecimal cantidad) {
+    public String convertirMoneda(BigDecimal cantidad, String moneda) {
     	cantidad = cantidad.setScale(2, RoundingMode.HALF_UP);
         long parteEntera = cantidad.longValue();
         int centavos = cantidad.remainder(BigDecimal.ONE).movePointRight(2).intValue();
         String texto = numeroALetrasService.convertir(parteEntera).toUpperCase();
-
-        //if (parteEntera == 1) 
-            //texto = "un";
+        String nombreMoneda = "MXN".equals(moneda) ? "pesos" : moneda;
+        String abreviacionMoneda = "MXN".equals(moneda) ? "M.N." : moneda;
         
-        //return String.format("%s %s %02d/100 M.N.", texto, parteEntera == 1 ? "peso" : "pesos", centavos);
-        return String.format("%s %s %02d/100 M.N.", texto, "pesos", centavos);
+        return String.format("%s %s %02d/100 %s", texto, nombreMoneda, centavos, abreviacionMoneda);
     }
 }

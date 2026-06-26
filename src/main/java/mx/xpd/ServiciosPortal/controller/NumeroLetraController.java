@@ -45,9 +45,9 @@ public class NumeroLetraController {
     }
 
     @GetMapping("/ConvertirNumeroLetra")
-    public String convertir(@RequestParam(value = "numero", defaultValue = "0") BigDecimal cantidad) {
+    public String convertir(@RequestParam(value = "numero", defaultValue = "0") BigDecimal cantidad, @RequestParam(value= "moneda", defaultValue = "MXN") String moneda) {
     	log.info("[ConvertirNumeroLetra] >>> Numero a convertir: {} <<<", cantidad);
-        return service.convertirMoneda(cantidad);
+        return service.convertirMoneda(cantidad, moneda);
     }
     
     @GetMapping("/AmountToLetter")
