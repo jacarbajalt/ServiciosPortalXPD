@@ -64,12 +64,7 @@ public class NumeroLetraController {
             @RequestParam(value = "FechaOrig", required = false) String FechaOrig, @RequestParam(value = "FechaTimb", required = false) String FechaTimb
     ) throws FileNotFoundException, IOException {
     	Properties prop = new Properties();
-    	InputStream input = getClass().getClassLoader().getResourceAsStream("config.properties");
-	    if (input == null) {
-	    	log.info("No se encontr� el archivo config.properties");
-	        throw new FileNotFoundException("No se encontró el archivo config.properties");
-	    }else
-	    	prop.load(input);
+		prop.load(new FileInputStream("config.properties"));
     	
     	//Valida el token asignado por Addendas
         if (!"g_NndKQ7vM=[".equals(token) && !"JEJE".equals(str)) {
