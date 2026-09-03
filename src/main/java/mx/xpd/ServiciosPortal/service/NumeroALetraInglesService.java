@@ -37,8 +37,7 @@ public class NumeroALetraInglesService {
     };
     
     public String convertir(long numero) {
-        if (numero == 0) return "ZERO";
-        if (numero < 0) return "minus " + convertir(-numero);
+        if (numero == 0 || numero <= 0) return "ZERO";
         return convertirNumero(numero).trim();
     }
     

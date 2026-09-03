@@ -25,8 +25,7 @@ public class NumeroALetrasService {
     };
 
     public String convertir(long numero) {
-        if (numero == 0) return "cero";
-        if (numero < 0) return "menos " + convertir(-numero);
+        if (numero == 0 || numero <= 0) return "cero";
         return convertirNumero(numero).trim();
     }
 
